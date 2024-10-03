@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  nestjs-app:
+    build: . # Use o Dockerfile para construir a imagem
+    container_name: ed-nestjs-app
+    ports:
+      - '80:3000'
+    environment:
+      - DATABASE_URL=file:/app/database/dev.db
+    volumes:
+      - ./database:/app/database # Apenas monte volumes necessários, como o banco de dados
+    command: ['pm2-runtime', 'start', 'dist/main.js']
+#ssh -i ~/.ssh/id_rsa ec2-user@52.90.9.193
